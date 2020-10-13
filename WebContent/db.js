@@ -6,11 +6,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const routes = require('routes');
+var cors = require('cors');
 var app = express();
 
 
 app.use(bodyParser.urlencoded({ extended: true })); 
-
+app.use(cors());
 
 app.post("/action", function(req , res){
 	console.log("hello from db.js");
@@ -61,8 +62,8 @@ if(connection){
 	
 
 }
-	else{
-		console.log("could not connect to database");
+else{
+	console.log("could not connect to database");
 	}
 
 res.write('<html>');
@@ -70,9 +71,11 @@ res.write('<head> <title> Hello TutorialsPoint </title> </head>');
 res.write(' <body> Resource Type 1: ' + p1FromReqBody + '  Resource Type 2: ' + p5FromReqBody + '  PatientId: ' + p4FromReqBody + '  Gender: ' + p3FromReqBody + '  Patient Full Url: ' + p2FromReqBody + '  Patient Data Last Updated: ' + p6FromReqBody + '</body>');
 res.write('</html>');
 //write end to mark it as stop for node js response.
+
+
 res.end();
 
-
+//res.render('/');
 // return res.send("Hello");
 // app.use('/', routes);
 //res.status(200).send();
@@ -84,6 +87,38 @@ res.end();
 
 //return;
 
+})  // end of post controller
+
+
+app.get('/getPatientRecord', function (req, res) {
+	console.log("invoked get");
+	const connection = mysql.createPool({
+		  host     : 'localhost',
+		  user     : 'root',
+		  password : 'ILN19#',
+		  database : '1uphealthpatientpool'
+		});
+
+	if(connection){
+		// Connecting to the database.
+		console.log("connected to db");
+	    connection.getConnection(function (err, connection) {
+
+	    	var getPatientRecSqlStmt = "SELECT * FROM patients";
+			console.log("retrieve pateint record sql stmt: " + getPatientRecSqlStmt);	
+	    	
+	    	
+	    // Executing the MySQL query (select all data from the 'users' table).
+	    connection.query(getPatientRecSqlStmt, function(error,results,fields) {
+	    	if (error) throw error;
+	    	res.send(results)
+	        console.log('Connected Id:- ' + connection.threadId);
+	    }); // end of connection.query
+	  }); // end of connection.getConnection
+	}
+	
+	
+	
 })
 
 //Setting up server
