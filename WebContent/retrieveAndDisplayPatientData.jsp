@@ -35,7 +35,7 @@ class RetrievePatientDataForm extends React.Component {
 	var patientId = this.state.value;
 console.log("test: " + patientId);
 var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
-var bearer = 'Bearer 14bb63e934514e2cabcf2ea39e47774b' ;
+var bearer = 'Bearer 43f06c9e713b440eae73bcd3a2c6ecd5' ;
 fetch(requesturl, {
         method: 'GET',
         headers: {
@@ -60,6 +60,9 @@ var apiResJsonObj = this.state.responselements;
 const apiResJsonObjAsStr = JSON.stringify(apiResJsonObj);
 console.log("apiResJsonObj as string: " + apiResJsonObjAsStr);
 
+var resourceType1 = apiResJsonObj.resourceType;
+
+
 var arrApiRes = apiResJsonObj.entry;
 const apiResArrStr = JSON.stringify(arrApiRes);
 console.log("apiResArr as string: " + apiResArrStr);
@@ -67,7 +70,7 @@ console.log("apiResArr as string: " + apiResArrStr);
 
 
 if(apiResJsonObj){
-	document.getElementById("containerResourceType1").innerHTML = "The resource type #1 found is : " + apiResJsonObj.resourceType;
+	document.getElementById("containerResourceType1").innerHTML = "The resource type #1 found is : " + resourceType1;
 }
 let arrApiResCopied = [];
 let arrProps = "";
@@ -119,7 +122,7 @@ console.log("api res arr children resource meta prop" + metaDataStr);
 let lastUpdated = metaData.lastUpdated;
 document.getElementById("containerLastUpdatedValue").innerHTML = "Patient's data was last updated on : " + lastUpdated;
 
-myFunction(fullUrl);
+submitDataToNodeJsServer(resourceType1,fullUrl,patientGender,patientId,resourceType2,lastUpdated,apiResJsonObjAsStr,apiResArrStr,arrPropsStr,arrChildrenStr,resourceStr,metaDataStr);
 
 }
 
@@ -166,8 +169,74 @@ ReactDOM.render(<RetrievePatientDataForm/>,document.getElementById("rootContaine
 
 
 
-function myFunction(p1) {
-  console.log("my test function invoked in componentDidUpdate" + p1);   // The function returns the product of p1 and p2
+function submitDataToNodeJsServer(p1,p2,p3,p4,p5,p6,apiResJsonObjAsStr,apiResArrStr,arrPropsStr,arrChildrenStr,resourceStr,metaDataStr) {
+console.log("Invoked function submitDataToNodeJsServer");
+console.log("value of param1 " + p1);
+console.log("value of param2 " + p2);
+console.log("value of param3 " + p3);
+console.log("value of param4 " + p4);
+console.log("value of param5 " + p5);
+console.log("value of param6 " + p6);
+
+var form = document.createElement("form");
+form.setAttribute("method", "post");
+form.setAttribute("action", "http://localhost:8082/action");
+
+// input field #1 of the form
+var hiddenField1 = document.createElement("input");
+hiddenField1.setAttribute("type", "hidden");
+hiddenField1.setAttribute("name", "p1");
+hiddenField1.setAttribute("value", p1 );
+
+form.appendChild(hiddenField1);
+
+// input field #2 of the form
+var hiddenField2 = document.createElement("input");
+hiddenField2.setAttribute("type", "hidden");
+hiddenField2.setAttribute("name", "p2");
+hiddenField2.setAttribute("value", p2 );
+
+form.appendChild(hiddenField2);
+// input field #3 of the form
+var hiddenField3 = document.createElement("input");
+hiddenField3.setAttribute("type", "hidden");
+hiddenField3.setAttribute("name", "p3");
+hiddenField3.setAttribute("value", p3 );
+
+form.appendChild(hiddenField3);
+
+// input field #4 of the form
+var hiddenField4 = document.createElement("input");
+hiddenField4.setAttribute("type", "hidden");
+hiddenField4.setAttribute("name", "p4");
+hiddenField4.setAttribute("value", p4 );
+
+form.appendChild(hiddenField4);
+
+// input field #5 of the form
+var hiddenField5 = document.createElement("input");
+hiddenField5.setAttribute("type", "hidden");
+hiddenField5.setAttribute("name", "p5");
+hiddenField5.setAttribute("value", p5 );
+
+form.appendChild(hiddenField5);
+
+// input field #6 of the form
+var hiddenField6 = document.createElement("input");
+hiddenField6.setAttribute("type", "hidden");
+hiddenField6.setAttribute("name", "p6");
+hiddenField6.setAttribute("value", p6 );
+
+form.appendChild(hiddenField6);
+
+
+
+
+document.body.appendChild(form);
+form.submit();
+
+console.log("finished submitting form");
+
 }
 
 </script>
