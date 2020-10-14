@@ -2,10 +2,8 @@
  * 
  */
 const express = require('express');
-// const router = express.Router();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const routes = require('routes');
 var cors = require('cors');
 var app = express();
 
@@ -67,8 +65,8 @@ else{
 	}
 
 res.write('<html>');
-res.write('<head> <title> Hello TutorialsPoint </title> </head>');
-res.write(' <body> Resource Type 1: ' + p1FromReqBody + '  Resource Type 2: ' + p5FromReqBody + '  PatientId: ' + p4FromReqBody + '  Gender: ' + p3FromReqBody + '  Patient Full Url: ' + p2FromReqBody + '  Patient Data Last Updated: ' + p6FromReqBody + '</body>');
+res.write('<head> <title> Patient Information </title> </head>');
+res.write(' <body> <b>Resource Type 1: </b>' + p1FromReqBody + '      <br/><br/> <b>Resource Type 2: </b>' + p5FromReqBody + '      <br/><br/> <b>PatientId: </b>' + p4FromReqBody + '      <br/><br/><b>Gender: </b>' + p3FromReqBody + '       <br/><br/><b>Patient Full Url: </b>' + p2FromReqBody + '       <br/><br/><b>Patient Data Last Updated: </b>' + p6FromReqBody + '</body>');
 res.write('</html>');
 //write end to mark it as stop for node js response.
 
@@ -91,7 +89,7 @@ res.end();
 
 
 app.get('/getPatientRecord', function (req, res) {
-	console.log("invoked get");
+	console.log("invoked Node JS Server GET controller");
 	const connection = mysql.createPool({
 		  host     : 'localhost',
 		  user     : 'root',
@@ -101,10 +99,13 @@ app.get('/getPatientRecord', function (req, res) {
 
 	if(connection){
 		// Connecting to the database.
-		console.log("connected to db");
+		console.log("Connected to db from Node JS Server GET controller");
 	    connection.getConnection(function (err, connection) {
 
-	    	var getPatientRecSqlStmt = "SELECT * FROM patients";
+	    	var patientId = req.query.id;
+	    	console.log("url param: " + patientId);
+	    
+	    	var getPatientRecSqlStmt = "SELECT * FROM patients WHERE patient_id = '" + patientId + "'";
 			console.log("retrieve pateint record sql stmt: " + getPatientRecSqlStmt);	
 	    	
 	    	
