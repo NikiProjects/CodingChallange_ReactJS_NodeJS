@@ -41,7 +41,7 @@ How to create a new access token:
 To generate a new token run the following command: (YOU DO NOT HAVE TO REPEAT ANY OF THE PREVIOUS STEPS)
 Microsoft Windows [Version 10.0.19041.508]
 (c) 2020 Microsoft Corporation. All rights reserved.
-C:\WINDOWS\system32>curl -X POST https://api.1up.health/fhir/oauth2/token -d "client_id=ac9e8486cd3b43a698d663ee686f085a" -d "client_secret=xO84i8Uy9Gej1e48olC25LfYv3ct4ByQ" -d "refresh_token=0c0cc2334431431b99cec8a828f67b00" -d "grant_type=refresh_token"
+C:\WINDOWS\system32>curl -X POST https://api.1up.health/fhir/oauth2/token -d "client_id=providedBy1upHealth" -d "client_secret=providedBy1UpHealth" -d "refresh_token=0c0cc2334431431b99cec8a828f67b00" -d "grant_type=refresh_token"
 {"refresh_token":"86e9f5f5fb45427c835631b89244dca2","token_type":"bearer","access_token":"6c0fa6f011d3451d82a44418aface40f","expires_in":7200}
 
 C:\WINDOWS\system32>
@@ -231,81 +231,81 @@ meta:
 lastUpdated: "2020-10-10T00:26:23.050Z"
 versionId: "9000000000000"
 __proto__:
-constructor: ƒ Object()
-hasOwnProperty: ƒ hasOwnProperty()
-isPrototypeOf: ƒ isPrototypeOf()
-propertyIsEnumerable: ƒ propertyIsEnumerable()
-toLocaleString: ƒ toLocaleString()
-toString: ƒ toString()
-valueOf: ƒ valueOf()
-__defineGetter__: ƒ __defineGetter__()
-__defineSetter__: ƒ __defineSetter__()
-__lookupGetter__: ƒ __lookupGetter__()
-__lookupSetter__: ƒ __lookupSetter__()
-get __proto__: ƒ __proto__()
-set __proto__: ƒ __proto__()
+constructor: Âƒ Object()
+hasOwnProperty: Âƒ hasOwnProperty()
+isPrototypeOf: Âƒ isPrototypeOf()
+propertyIsEnumerable: Âƒ propertyIsEnumerable()
+toLocaleString: Âƒ toLocaleString()
+toString: Âƒ toString()
+valueOf: Âƒ valueOf()
+__defineGetter__: Âƒ __defineGetter__()
+__defineSetter__: Âƒ __defineSetter__()
+__lookupGetter__: Âƒ __lookupGetter__()
+__lookupSetter__: Âƒ __lookupSetter__()
+get __proto__: Âƒ __proto__()
+set __proto__: Âƒ __proto__()
 resourceType: "Patient"
 __proto__: Object
 search: {mode: "match"}
 __proto__: Object
 length: 1
 __proto__: Array(0)
-concat: ƒ concat()
-constructor: ƒ Array()
-copyWithin: ƒ copyWithin()
-entries: ƒ entries()
-every: ƒ every()
-fill: ƒ fill()
-filter: ƒ filter()
-find: ƒ find()
-findIndex: ƒ findIndex()
-flat: ƒ flat()
-flatMap: ƒ flatMap()
-forEach: ƒ forEach()
-includes: ƒ includes()
-indexOf: ƒ indexOf()
-join: ƒ join()
-keys: ƒ keys()
-lastIndexOf: ƒ lastIndexOf()
+concat: Âƒ concat()
+constructor: Âƒ Array()
+copyWithin: Âƒ copyWithin()
+entries: Âƒ entries()
+every: Âƒ every()
+fill: Âƒ fill()
+filter: Âƒ filter()
+find: Âƒ find()
+findIndex: Âƒ findIndex()
+flat: Âƒ flat()
+flatMap: Âƒ flatMap()
+forEach: Âƒ forEach()
+includes: Âƒ includes()
+indexOf: Âƒ indexOf()
+join: Âƒ join()
+keys: Âƒ keys()
+lastIndexOf: Âƒ lastIndexOf()
 length: 0
-map: ƒ map()
-pop: ƒ pop()
-push: ƒ push()
-reduce: ƒ reduce()
-reduceRight: ƒ reduceRight()
-reverse: ƒ reverse()
-shift: ƒ shift()
-slice: ƒ slice()
-some: ƒ some()
-sort: ƒ sort()
-splice: ƒ splice()
-toLocaleString: ƒ toLocaleString()
-toString: ƒ toString()
-unshift: ƒ unshift()
-values: ƒ values()
-Symbol(Symbol.iterator): ƒ values()
-Symbol(Symbol.unscopables): {copyWithin: true, entries: true, fill: true, find: true, findIndex: true, …}
+map: Âƒ map()
+pop: Âƒ pop()
+push: Âƒ push()
+reduce: Âƒ reduce()
+reduceRight: Âƒ reduceRight()
+reverse: Âƒ reverse()
+shift: Âƒ shift()
+slice: Âƒ slice()
+some: Âƒ some()
+sort: Âƒ sort()
+splice: Âƒ splice()
+toLocaleString: Âƒ toLocaleString()
+toString: Âƒ toString()
+unshift: Âƒ unshift()
+values: Âƒ values()
+Symbol(Symbol.iterator): Âƒ values()
+Symbol(Symbol.unscopables): {copyWithin: true, entries: true, fill: true, find: true, findIndex: true, Â…}
 __proto__: Object
 resourceType: "Bundle"
 total: 1
 type: "searchset"
 __proto__:
-constructor: ƒ Object()
-hasOwnProperty: ƒ hasOwnProperty()
-isPrototypeOf: ƒ isPrototypeOf()
-propertyIsEnumerable: ƒ propertyIsEnumerable()
-toLocaleString: ƒ toLocaleString()
-toString: ƒ toString()
-valueOf: ƒ valueOf()
-__defineGetter__: ƒ __defineGetter__()
-__defineSetter__: ƒ __defineSetter__()
-__lookupGetter__: ƒ __lookupGetter__()
-__lookupSetter__: ƒ __lookupSetter__()
-get __proto__: ƒ __proto__()
-set __proto__: ƒ __proto__()
+constructor: Âƒ Object()
+hasOwnProperty: Âƒ hasOwnProperty()
+isPrototypeOf: Âƒ isPrototypeOf()
+propertyIsEnumerable: Âƒ propertyIsEnumerable()
+toLocaleString: Âƒ toLocaleString()
+toString: Âƒ toString()
+valueOf: Âƒ valueOf()
+__defineGetter__: Âƒ __defineGetter__()
+__defineSetter__: Âƒ __defineSetter__()
+__lookupGetter__: Âƒ __lookupGetter__()
+__lookupSetter__: Âƒ __lookupSetter__()
+get __proto__: Âƒ __proto__()
+set __proto__: Âƒ __proto__()
 
 Ex 2: 
-{resourceType: "Bundle", type: "searchset", total: 1, entry: Array(1)}entry: Array(1)0: fullUrl: "https://api.1up.health/fhir/dstu2/Patient/6e7c6386bfca"resource: gender: "male"id: "6e7c6386bfca"meta: lastUpdated: "2020-10-10T00:26:23.050Z"versionId: "9000000000000"__proto__: constructor: ƒ Object()arguments: (...)assign: ƒ assign()caller: (...)create: ƒ create()defineProperties: ƒ defineProperties()defineProperty: ƒ defineProperty()entries: ƒ entries()freeze: ƒ freeze()fromEntries: ƒ fromEntries()getOwnPropertyDescriptor: ƒ getOwnPropertyDescriptor()getOwnPropertyDescriptors: ƒ getOwnPropertyDescriptors()getOwnPropertyNames: ƒ (e)getOwnPropertySymbols: ƒ getOwnPropertySymbols()getPrototypeOf: ƒ getPrototypeOf()is: ƒ is()isExtensible: ƒ isExtensible()isFrozen: ƒ isFrozen()isSealed: ƒ isSealed()keys: ƒ keys()length: 1name: "Object"preventExtensions: ƒ preventExtensions()prototype: {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}seal: ƒ seal()setPrototypeOf: ƒ setPrototypeOf()values: ƒ values()__proto__: ƒ ()[[Scopes]]: Scopes[0]hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()resourceType: "Patient"__proto__: Objectsearch: {mode: "match"}__proto__: Objectlength: 1__proto__: Array(0)concat: ƒ concat()constructor: ƒ Array()copyWithin: ƒ copyWithin()entries: ƒ entries()every: ƒ every()fill: ƒ fill()filter: ƒ filter()find: ƒ find()findIndex: ƒ findIndex()flat: ƒ flat()flatMap: ƒ flatMap()forEach: ƒ forEach()includes: ƒ includes()indexOf: ƒ indexOf()join: ƒ join()keys: ƒ keys()lastIndexOf: ƒ lastIndexOf()length: 0map: ƒ map()pop: ƒ pop()push: ƒ push()reduce: ƒ reduce()reduceRight: ƒ reduceRight()reverse: ƒ reverse()shift: ƒ shift()slice: ƒ slice()some: ƒ some()sort: ƒ sort()splice: ƒ splice()toLocaleString: ƒ toLocaleString()toString: ƒ toString()unshift: ƒ unshift()values: ƒ values()Symbol(Symbol.iterator): ƒ values()Symbol(Symbol.unscopables): {copyWithin: true, entries: true, fill: true, find: true, findIndex: true, …}__proto__: ObjectresourceType: "Bundle"total: 1type: "searchset"__proto__: Objectconstructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
+{resourceType: "Bundle", type: "searchset", total: 1, entry: Array(1)}entry: Array(1)0: fullUrl: "https://api.1up.health/fhir/dstu2/Patient/6e7c6386bfca"resource: gender: "male"id: "6e7c6386bfca"meta: lastUpdated: "2020-10-10T00:26:23.050Z"versionId: "9000000000000"__proto__: constructor: Âƒ Object()arguments: (...)assign: Âƒ assign()caller: (...)create: Âƒ create()defineProperties: Âƒ defineProperties()defineProperty: Âƒ defineProperty()entries: Âƒ entries()freeze: Âƒ freeze()fromEntries: Âƒ fromEntries()getOwnPropertyDescriptor: Âƒ getOwnPropertyDescriptor()getOwnPropertyDescriptors: Âƒ getOwnPropertyDescriptors()getOwnPropertyNames: Âƒ (e)getOwnPropertySymbols: Âƒ getOwnPropertySymbols()getPrototypeOf: Âƒ getPrototypeOf()is: Âƒ is()isExtensible: Âƒ isExtensible()isFrozen: Âƒ isFrozen()isSealed: Âƒ isSealed()keys: Âƒ keys()length: 1name: "Object"preventExtensions: Âƒ preventExtensions()prototype: {constructor: Âƒ, __defineGetter__: Âƒ, __defineSetter__: Âƒ, hasOwnProperty: Âƒ, __lookupGetter__: Âƒ,Â Â…}seal: Âƒ seal()setPrototypeOf: Âƒ setPrototypeOf()values: Âƒ values()__proto__: Âƒ ()[[Scopes]]: Scopes[0]hasOwnProperty: Âƒ hasOwnProperty()isPrototypeOf: Âƒ isPrototypeOf()propertyIsEnumerable: Âƒ propertyIsEnumerable()toLocaleString: Âƒ toLocaleString()toString: Âƒ toString()valueOf: Âƒ valueOf()__defineGetter__: Âƒ __defineGetter__()__defineSetter__: Âƒ __defineSetter__()__lookupGetter__: Âƒ __lookupGetter__()__lookupSetter__: Âƒ __lookupSetter__()get __proto__: Âƒ __proto__()set __proto__: Âƒ __proto__()resourceType: "Patient"__proto__: Objectsearch: {mode: "match"}__proto__: Objectlength: 1__proto__: Array(0)concat: Âƒ concat()constructor: Âƒ Array()copyWithin: Âƒ copyWithin()entries: Âƒ entries()every: Âƒ every()fill: Âƒ fill()filter: Âƒ filter()find: Âƒ find()findIndex: Âƒ findIndex()flat: Âƒ flat()flatMap: Âƒ flatMap()forEach: Âƒ forEach()includes: Âƒ includes()indexOf: Âƒ indexOf()join: Âƒ join()keys: Âƒ keys()lastIndexOf: Âƒ lastIndexOf()length: 0map: Âƒ map()pop: Âƒ pop()push: Âƒ push()reduce: Âƒ reduce()reduceRight: Âƒ reduceRight()reverse: Âƒ reverse()shift: Âƒ shift()slice: Âƒ slice()some: Âƒ some()sort: Âƒ sort()splice: Âƒ splice()toLocaleString: Âƒ toLocaleString()toString: Âƒ toString()unshift: Âƒ unshift()values: Âƒ values()Symbol(Symbol.iterator): Âƒ values()Symbol(Symbol.unscopables): {copyWithin: true, entries: true, fill: true, find: true, findIndex: true,Â Â…}__proto__: ObjectresourceType: "Bundle"total: 1type: "searchset"__proto__: Objectconstructor: Âƒ Object()hasOwnProperty: Âƒ hasOwnProperty()isPrototypeOf: Âƒ isPrototypeOf()propertyIsEnumerable: Âƒ propertyIsEnumerable()toLocaleString: Âƒ toLocaleString()toString: Âƒ toString()valueOf: Âƒ valueOf()__defineGetter__: Âƒ __defineGetter__()__defineSetter__: Âƒ __defineSetter__()__lookupGetter__: Âƒ __lookupGetter__()__lookupSetter__: Âƒ __lookupSetter__()get __proto__: Âƒ __proto__()set __proto__: Âƒ __proto__()
 -------------------------------------------------------------------------------------------------------------------------------
 In order to implement the React client, the following files were imported:
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
