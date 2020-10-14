@@ -11,7 +11,7 @@ Also, when we created a new application, certain values were provided that we in
 Now, using the 'code' property value in above command, we will generate the access token and refresh token. 
 
 Step2:
-----------------------------------------------------------
+
 Microsoft Windows [Version 10.0.19041.508]
 (c) 2020 Microsoft Corporation. All rights reserved.
 
@@ -20,7 +20,7 @@ C:\WINDOWS\system32>curl -X POST "https://api.1up.health/user-management/v1/user
 {"success":true,"code":"b3e18eb6de9c480ebb7ea5836aba18a6","oneup_user_id":123311463,"app_user_id":"nkulkarni","active":true}
 C:\WINDOWS\system32>
 
-----------------------------------------------------------------------
+
 Step 3: (results in generation of access token)
 Microsoft Windows [Version 10.0.19041.508]
 (c) 2020 Microsoft Corporation. All rights reserved.
@@ -28,7 +28,7 @@ Microsoft Windows [Version 10.0.19041.508]
 C:\WINDOWS\system32>curl -X POST "https://api.1up.health/fhir/oauth2/token" -d "client_id=providedBy1upHealth" -d "client_secret=providedBy1upHealth" -d "code=b3e18eb6de9c480ebb7ea5836aba18a6" -d "grant_type=authorization_code"
 {"refresh_token":"0c0cc2334431431b99cec8a828f67b00","token_type":"bearer","access_token":"f2d5fe0c162b407099396f91884ff7f8","expires_in":7200,"scope":"user/*.*"}
 C:\WINDOWS\system32>
-----------------------------------------------------------------------
+
 Step 4: Creation of patient using Postman: 
 Request using Postman: 
 Request Type: POST
@@ -36,7 +36,7 @@ Navigate to 'Authorization' tab  ----> Select Type as 'Bearer Token'
 Request URL: https://api.1up.health/fhir/dstu2/Patient  
 Body: is 'Raw'
 Body: {"resourceType": "Patient","id": "tomhanks","gender": "male"}
-----------------------------------------------------------------------------
+
 How to create a new access token: 
 To generate a new token run the following command: (YOU DO NOT HAVE TO REPEAT ANY OF THE PREVIOUS STEPS)
 Microsoft Windows [Version 10.0.19041.508]
@@ -45,7 +45,7 @@ C:\WINDOWS\system32>curl -X POST https://api.1up.health/fhir/oauth2/token -d "cl
 {"refresh_token":"86e9f5f5fb45427c835631b89244dca2","token_type":"bearer","access_token":"6c0fa6f011d3451d82a44418aface40f","expires_in":7200}
 
 C:\WINDOWS\system32>
------------------------------------------------------------------------------------
+
 How to retrieve patient info using Postman: 
 
 Was able to retrieve created patient's info using Postman: 
@@ -61,7 +61,7 @@ response/output: {
     "id": "4ed6307403a1",
     "resourceType": "Patient"
 }
-------------------------------------------------------------------------------------
+
 
 To access all of the Patient resources using Postman, submit the following request: 
 Type: GET 
@@ -106,7 +106,7 @@ is the following:
         }
     ]
 }
------------------------------------------------------------------------------------------
+
 
 To get details about 1 Patient resource, use the URL's shown in above section. The url's shown above are used as request urls. This request was submitted using 
 Postman: 
@@ -123,8 +123,8 @@ Response Body:
     "id": "4ed6307403a1"
 }
 
--------------------------------------------------------------------------------------------
-How to use the $everything syntax: We can demo the $everything syntax using Postman. 
+
+How to use the $everything syntax: We can demo the $everything syntax using Postman:
 Request Type: GET
 Request URI: https://api.1up.health/fhir/dstu2/Patient/6e7c6386bfca/$everything
 In the URI above, the dstu2 can be changed to stu3. Or it can be changed to r4 as these values represent the version of FHIR. 
@@ -154,9 +154,9 @@ The Response is the following:
     ]
 }
 
----------------------------------------------------------------------
-Downloaded and installed NodeJS to implement Node JS Server. The following Node JS modules were used to implement the Node JS Server. 
--------------------------------------------------------------------------------------------
+
+Downloaded and installed NodeJS to implement Node JS Server. The following Node JS modules were used to implement the Node JS Server: 
+
 Microsoft Windows [Version 10.0.19041.508]
 (c) 2020 Microsoft Corporation. All rights reserved.
 
@@ -201,7 +201,7 @@ npm WARN RetrievePatientData No license field.
 added 9 packages from 14 contributors and audited 97 packages in 2.138s
 found 0 vulnerabilities
 
---------------------------------------------------------------------------------------------------------
+
 Script that was used to setup the database for this project: 
 CREATE SCHEMA `1uphealthpatientpool`;
 
@@ -218,7 +218,7 @@ CREATE TABLE `patients` (
   PRIMARY KEY (`patient_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--------------------------------------------------------------------------------------------------------
+
 Console output example of JSON object returned by 1upHealth API: 
 {resourceType: "Bundle", type: "searchset", total: 1, entry: Array(1)}
 entry: Array(1)
@@ -305,15 +305,16 @@ get __proto__: Âƒ __proto__()
 set __proto__: Âƒ __proto__()
 
 Ex 2: 
-{resourceType: "Bundle", type: "searchset", total: 1, entry: Array(1)}entry: Array(1)0: fullUrl: "https://api.1up.health/fhir/dstu2/Patient/6e7c6386bfca"resource: gender: "male"id: "6e7c6386bfca"meta: lastUpdated: "2020-10-10T00:26:23.050Z"versionId: "9000000000000"__proto__: constructor: Âƒ Object()arguments: (...)assign: Âƒ assign()caller: (...)create: Âƒ create()defineProperties: Âƒ defineProperties()defineProperty: Âƒ defineProperty()entries: Âƒ entries()freeze: Âƒ freeze()fromEntries: Âƒ fromEntries()getOwnPropertyDescriptor: Âƒ getOwnPropertyDescriptor()getOwnPropertyDescriptors: Âƒ getOwnPropertyDescriptors()getOwnPropertyNames: Âƒ (e)getOwnPropertySymbols: Âƒ getOwnPropertySymbols()getPrototypeOf: Âƒ getPrototypeOf()is: Âƒ is()isExtensible: Âƒ isExtensible()isFrozen: Âƒ isFrozen()isSealed: Âƒ isSealed()keys: Âƒ keys()length: 1name: "Object"preventExtensions: Âƒ preventExtensions()prototype: {constructor: Âƒ, __defineGetter__: Âƒ, __defineSetter__: Âƒ, hasOwnProperty: Âƒ, __lookupGetter__: Âƒ,Â Â…}seal: Âƒ seal()setPrototypeOf: Âƒ setPrototypeOf()values: Âƒ values()__proto__: Âƒ ()[[Scopes]]: Scopes[0]hasOwnProperty: Âƒ hasOwnProperty()isPrototypeOf: Âƒ isPrototypeOf()propertyIsEnumerable: Âƒ propertyIsEnumerable()toLocaleString: Âƒ toLocaleString()toString: Âƒ toString()valueOf: Âƒ valueOf()__defineGetter__: Âƒ __defineGetter__()__defineSetter__: Âƒ __defineSetter__()__lookupGetter__: Âƒ __lookupGetter__()__lookupSetter__: Âƒ __lookupSetter__()get __proto__: Âƒ __proto__()set __proto__: Âƒ __proto__()resourceType: "Patient"__proto__: Objectsearch: {mode: "match"}__proto__: Objectlength: 1__proto__: Array(0)concat: Âƒ concat()constructor: Âƒ Array()copyWithin: Âƒ copyWithin()entries: Âƒ entries()every: Âƒ every()fill: Âƒ fill()filter: Âƒ filter()find: Âƒ find()findIndex: Âƒ findIndex()flat: Âƒ flat()flatMap: Âƒ flatMap()forEach: Âƒ forEach()includes: Âƒ includes()indexOf: Âƒ indexOf()join: Âƒ join()keys: Âƒ keys()lastIndexOf: Âƒ lastIndexOf()length: 0map: Âƒ map()pop: Âƒ pop()push: Âƒ push()reduce: Âƒ reduce()reduceRight: Âƒ reduceRight()reverse: Âƒ reverse()shift: Âƒ shift()slice: Âƒ slice()some: Âƒ some()sort: Âƒ sort()splice: Âƒ splice()toLocaleString: Âƒ toLocaleString()toString: Âƒ toString()unshift: Âƒ unshift()values: Âƒ values()Symbol(Symbol.iterator): Âƒ values()Symbol(Symbol.unscopables): {copyWithin: true, entries: true, fill: true, find: true, findIndex: true,Â Â…}__proto__: ObjectresourceType: "Bundle"total: 1type: "searchset"__proto__: Objectconstructor: Âƒ Object()hasOwnProperty: Âƒ hasOwnProperty()isPrototypeOf: Âƒ isPrototypeOf()propertyIsEnumerable: Âƒ propertyIsEnumerable()toLocaleString: Âƒ toLocaleString()toString: Âƒ toString()valueOf: Âƒ valueOf()__defineGetter__: Âƒ __defineGetter__()__defineSetter__: Âƒ __defineSetter__()__lookupGetter__: Âƒ __lookupGetter__()__lookupSetter__: Âƒ __lookupSetter__()get __proto__: Âƒ __proto__()set __proto__: Âƒ __proto__()
--------------------------------------------------------------------------------------------------------------------------------
+{resourceType: "Bundle", type: "searchset", total: 1, entry: Array(1)}entry: Array(1)0: fullUrl: "https://api.1up.health/fhir/dstu2/Patient/6e7c6386bfca"resource: gender: "male"id: "6e7c6386bfca"meta: lastUpdated: "2020-10-10T00:26:23.050Z"versionId: "9000000000000"__proto__: constructor: ƒ Object()arguments: (...)assign: ƒ assign()caller: (...)create: ƒ create()defineProperties: ƒ defineProperties()defineProperty: ƒ defineProperty()entries: ƒ entries()freeze: ƒ freeze()fromEntries: ƒ fromEntries()getOwnPropertyDescriptor: ƒ getOwnPropertyDescriptor()getOwnPropertyDescriptors: ƒ getOwnPropertyDescriptors()getOwnPropertyNames: ƒ (e)getOwnPropertySymbols: ƒ getOwnPropertySymbols()getPrototypeOf: ƒ getPrototypeOf()is: ƒ is()isExtensible: ƒ isExtensible()isFrozen: ƒ isFrozen()isSealed: ƒ isSealed()keys: ƒ keys()length: 1name: "Object"preventExtensions: ƒ preventExtensions()prototype: {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}seal: ƒ seal()setPrototypeOf: ƒ setPrototypeOf()values: ƒ values()__proto__: ƒ ()[[Scopes]]: Scopes[0]hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()resourceType: "Patient"__proto__: Objectsearch: {mode: "match"}__proto__: Objectlength: 1__proto__: Array(0)concat: ƒ concat()constructor: ƒ Array()copyWithin: ƒ copyWithin()entries: ƒ entries()every: ƒ every()fill: ƒ fill()filter: ƒ filter()find: ƒ find()findIndex: ƒ findIndex()flat: ƒ flat()flatMap: ƒ flatMap()forEach: ƒ forEach()includes: ƒ includes()indexOf: ƒ indexOf()join: ƒ join()keys: ƒ keys()lastIndexOf: ƒ lastIndexOf()length: 0map: ƒ map()pop: ƒ pop()push: ƒ push()reduce: ƒ reduce()reduceRight: ƒ reduceRight()reverse: ƒ reverse()shift: ƒ shift()slice: ƒ slice()some: ƒ some()sort: ƒ sort()splice: ƒ splice()toLocaleString: ƒ toLocaleString()toString: ƒ toString()unshift: ƒ unshift()values: ƒ values()Symbol(Symbol.iterator): ƒ values()Symbol(Symbol.unscopables): {copyWithin: true, entries: true, fill: true, find: true, findIndex: true, …}__proto__: ObjectresourceType: "Bundle"total: 1type: "searchset"__proto__: Objectconstructor: ƒ Object()hasOwnProperty: ƒ hasOwnProperty()isPrototypeOf: ƒ isPrototypeOf()propertyIsEnumerable: ƒ propertyIsEnumerable()toLocaleString: ƒ toLocaleString()toString: ƒ toString()valueOf: ƒ valueOf()__defineGetter__: ƒ __defineGetter__()__defineSetter__: ƒ __defineSetter__()__lookupGetter__: ƒ __lookupGetter__()__lookupSetter__: ƒ __lookupSetter__()get __proto__: ƒ __proto__()set __proto__: ƒ __proto__()
+
+
 In order to implement the React client, the following files were imported:
 <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 
 Node JS installation notes: 
------------------------------------------------------------
+
 Getting latest version of the Chocolatey package for download.
 Getting Chocolatey from https://chocolatey.org/api/v2/package/chocolatey/0.10.15.
 Extracting C:\Users\Nikita\AppData\Local\Temp\chocolatey\chocInstall\chocolatey.zip to C:\Users\Nikita\AppData\Local\Temp\chocolatey\chocInstall...
@@ -462,4 +463,3 @@ visualstudio2017-workload-vctools has been installed.
 Chocolatey upgraded 2/3 packages.
  See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
 Type ENTER to exit:
---------------------------------------------------------------
