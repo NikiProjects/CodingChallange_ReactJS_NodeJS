@@ -24,6 +24,9 @@ constructor(props) {
     super(props);
     this.state = {value: '', responselements: '', responseArr:[], dbrecords:'', patientIdFromDbState:'', resourceType1FromDbState:'',resourceType2FromDbState:'',genderFromDbState:'',fullUrlFromDbState:'',lastUpdatedFromDbState:''};
 	
+	let insertDateFromDb = '';
+	let Difference_In_Time = '';	
+
 	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
  	
@@ -74,7 +77,45 @@ var resourceType2FromDb = dbPatientData[0].resourceType2;
 var genderFromDb = dbPatientData[0].gender;
 var fullUrlFromDb = dbPatientData[0].fullUrl;
 var lastUpdatedFromDb = dbPatientData[0].lastUpdated;
+let insertDateFromDb = dbPatientData[0].insertTs;
+console.log("insertTsFromDb: " + insertDateFromDb);
 
+var splitStr = insertDateFromDb.split("-");
+console.log("Split num1 results in: " + splitStr);
+console.log("splitStr index 0 " + splitStr[0]);
+var yearDbInsertTs = splitStr[0];
+console.log("Year: " + yearDbInsertTs);
+var monthDbInsertTs = splitStr[1];
+console.log("Month: " + monthDbInsertTs);
+var secondSplit = splitStr[2].split('T');
+console.log("2nd split: " + secondSplit);
+var dayDbInsertTs = secondSplit[0];
+console.log("Day: " + dayDbInsertTs);
+
+var thirdSplit = secondSplit[1].split(":");
+console.log("3rd split: " + thirdSplit);
+var hoursDbInsertTs = thirdSplit[0];
+console.log("Hours: " + hoursDbInsertTs);
+
+var minutesDbInsertTs = thirdSplit[1];
+console.log("Minutes: " + minutesDbInsertTs);
+var fourthSplit = thirdSplit[2].split(".");
+console.log("4th split: " + fourthSplit);
+var secondsDbInsertTs = fourthSplit[0];
+console.log("Seconds: " + secondsDbInsertTs);
+
+
+
+var currentDate = new Date();
+
+var dateInsertTsDb = new Date(yearDbInsertTs, monthDbInsertTs, dayDbInsertTs, 10, minutesDbInsertTs, secondsDbInsertTs);
+console.log("print: " + dateInsertTsDb);
+
+let Difference_In_Time = currentDate.getTime() - dateInsertTsDb.getTime(); 
+console.log("Diff: " + Difference_In_Time);
+
+if(Math.abs(Difference_In_Time) < 3600000)
+{
 this.setState({
       patientIdFromDbState: patientIdFromDb
     });
@@ -99,12 +140,27 @@ this.setState({
     });
 
 console.log("Completed if block - patient id exists in db.");
+}
+
+else{
+console.log("Executing new else block");
+var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
+var bearer = 'Bearer 026b74a30e544248945ea5d75b59e056' ;
+fetch(requesturl, {
+        method: 'GET',
+        headers: {
+            'Authorization': bearer,
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+.then(data => this.setState({responselements:data})) 
+}
 
 }
 else{
 console.log("In retrieve from API block");
 var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
-var bearer = 'Bearer 4f813704e1ec42e08ef81ab18188491c' ;
+var bearer = 'Bearer 026b74a30e544248945ea5d75b59e056' ;
 fetch(requesturl, {
         method: 'GET',
         headers: {
@@ -344,6 +400,11 @@ form.submit();
 
 console.log("finished submitting form to node js server.");
 
+}
+
+
+function hello(){
+console.log("Invoked hello helper function");
 }
 
 </script>
