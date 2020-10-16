@@ -68,8 +68,6 @@ console.log("dbPatientDataAsStrHasPatientId " + dbPatientDataAsStrHasPatientId);
 
 
 console.log("In retrieve from db block");
-var patientIdArrIndex0FromDb = dbPatientData[0].patient_id;
-
 
 var patientIdFromDb = dbPatientData[0].patient_id;
 var resourceType1FromDb = dbPatientData[0].resourceType1;
@@ -85,36 +83,37 @@ console.log("Split num1 results in: " + splitStr);
 console.log("splitStr index 0 " + splitStr[0]);
 var yearDbInsertTs = splitStr[0];
 console.log("Year: " + yearDbInsertTs);
-var monthDbInsertTs = splitStr[1];
+let monthDbInsertTs = splitStr[1];
+monthDbInsertTs = monthDbInsertTs - 1;
 console.log("Month: " + monthDbInsertTs);
-var secondSplit = splitStr[2].split('T');
+
+var secondSplit = splitStr[2].split(' ');
 console.log("2nd split: " + secondSplit);
 var dayDbInsertTs = secondSplit[0];
 console.log("Day: " + dayDbInsertTs);
 
 var thirdSplit = secondSplit[1].split(":");
 console.log("3rd split: " + thirdSplit);
+
 var hoursDbInsertTs = thirdSplit[0];
-console.log("Hours: " + hoursDbInsertTs);
+console.log("hoursDbInsertTs: " + hoursDbInsertTs);
 
 var minutesDbInsertTs = thirdSplit[1];
-console.log("Minutes: " + minutesDbInsertTs);
-var fourthSplit = thirdSplit[2].split(".");
-console.log("4th split: " + fourthSplit);
-var secondsDbInsertTs = fourthSplit[0];
-console.log("Seconds: " + secondsDbInsertTs);
+console.log("minutesDbInsertTs: " + minutesDbInsertTs);
 
+var secondsDbInsertTs = thirdSplit[2];
+console.log("Day: " + secondsDbInsertTs);
 
-
-var currentDate = new Date();
-
-var dateInsertTsDb = new Date(yearDbInsertTs, monthDbInsertTs, dayDbInsertTs, 10, minutesDbInsertTs, secondsDbInsertTs);
+var currentDate =  new Date();
+var dateInsertTsDb = new Date(yearDbInsertTs, monthDbInsertTs, dayDbInsertTs, hoursDbInsertTs, minutesDbInsertTs, secondsDbInsertTs);
+console.log("print: " + currentDate);
 console.log("print: " + dateInsertTsDb);
 
 let Difference_In_Time = currentDate.getTime() - dateInsertTsDb.getTime(); 
 console.log("Diff: " + Difference_In_Time);
-
-if(Math.abs(Difference_In_Time) < 3600000)
+var absValueDiffInTime = Math.abs(Difference_In_Time);
+console.log("Absolute value of diffInTime: " + absValueDiffInTime);
+if(absValueDiffInTime < 3600000)
 {
 this.setState({
       patientIdFromDbState: patientIdFromDb
@@ -141,11 +140,10 @@ this.setState({
 
 console.log("Completed if block - patient id exists in db.");
 }
-
 else{
 console.log("Executing new else block");
 var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
-var bearer = 'Bearer 026b74a30e544248945ea5d75b59e056' ;
+var bearer = 'Bearer 518c076ffdc746cf983e06f797f90fe5' ;
 fetch(requesturl, {
         method: 'GET',
         headers: {
@@ -160,7 +158,7 @@ fetch(requesturl, {
 else{
 console.log("In retrieve from API block");
 var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
-var bearer = 'Bearer 026b74a30e544248945ea5d75b59e056' ;
+var bearer = 'Bearer 518c076ffdc746cf983e06f797f90fe5' ;
 fetch(requesturl, {
         method: 'GET',
         headers: {
@@ -341,6 +339,7 @@ console.log("api res arr children resource meta prop" + metaDataStr);
 
 let lastUpdated = metaData.lastUpdated;
 document.getElementById("containerLastUpdatedValue").innerHTML = "Patient's data was last updated on : " + lastUpdated;
+
 
 submitDataToNodeJsServer(resourceType1,fullUrl,patientGender,patientId,resourceType2,lastUpdated);
 

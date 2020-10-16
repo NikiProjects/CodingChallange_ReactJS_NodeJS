@@ -94,7 +94,8 @@ app.get('/getPatientRecord', function (req, res) {
 		  host     : 'localhost',
 		  user     : 'root',
 		  password : 'ILN19#',
-		  database : '1uphealthpatientpool'
+		  database : '1uphealthpatientpool',
+		  dateStrings: 'date' 
 		});
 
 	if(connection){
@@ -112,6 +113,8 @@ app.get('/getPatientRecord', function (req, res) {
 	    // Executing the MySQL query (select all data from the 'users' table).
 	    connection.query(getPatientRecSqlStmt, function(error,results,fields) {
 	    	if (error) throw error;
+	    	var outputRes = JSON.stringify(results);
+	    	console.log("output: " + outputRes);
 	    	res.send(results)
 	        console.log('Connected Id:- ' + connection.threadId);
 	    }); // end of connection.query
