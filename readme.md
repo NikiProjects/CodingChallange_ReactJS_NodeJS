@@ -374,3 +374,41 @@ visualstudio2017-workload-vctools has been installed.
 Chocolatey upgraded 2/3 packages.
  See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
 Type ENTER to exit:
+
+Giving a demo of this project: 
+1) Open Eclipse Mars 1 and navigate to project C:\Users\Nikita\Nex-G-wkspace\RetrievePatientData. 
+2) Run the C:\Users\Nikita\Nex-G-wkspace\RetrievePatientData\WebContent\retrieveAndDisplayPatientData.jsp file on Tomcat7 Server included by the Eclipse environment. 
+3) Start the Node JS Server, by: 
+- in the cmd navigate into the path  C:\Users\Nikita\Nex-G-wkspace\RetrievePatientData\WebContent\. This is the directory location of the db.js file. The Node JS Server is implemented in the db.js file. 
+- using the cmd run the command node db.js. 
+4) In the new browser page that pops up when the jsp file is run, a React form will be displayed to the user. The form includes 1) 1 input field 2) a submit button. In the input field, the user should enter a patient id that exists in the 1upHealth system. After entering the patient id, the submit button should be pressed. 
+
+Implementation logic at a high level: 
+Upon the click of the 'Submit' button, the logic within the handleSubmit(event) function is executed. This logic first checks if the user provided patient id exist in the db. This is done by sending a GET request to our Node JS Server. 2)If a record exists in the '1uphealthpatientpool.patients' table with that patient's id, the logic analyzes the insertTs column for this record in the db. 3)Next, the value of the insertTs column is compared to the current timestamp. The insertTs timestamp indicates the time at which the 1upHealth Api was called, and when this api delivered info was inserted into the db. If the logic finds that the difference between the current timestamp and insertTs timestamp is greater than 2 hours, then the logic invokes the 1upHealthApi to retrieve the patient info. If the difference is less than 2 hours, the function logic extracts patient info from db and displays it to the user on the DOM. In the case, this patient id does not exist in the db, the 1upHealth API is invoked, and the response from the 1upHealth API is displayed to the user. 
+
+The componentDidUpdate() function serves two major function:
+The logic within this function takes values that have been set into the 'state' variable and displays these values on the DOM. This 'state' variable contains the   
+database retrieved values that are rendered on the DOM by using syntax like document.getElementById("containerPatientId").innerHTML = "The patient's id is : " + patientIdFromDb;
+2) The componentDidUpdate() function also extracts values from the JSON response and displays these values on the DOM. 
+
+The render() function is used to create the form and the other DOM elements. 
+
+The logic within this JSP depends on helper functions that are placed outside of the React Component. Also, within the React Component, we declare helper function that can be called with the keyword 'this'. Any references to this.setState should take place within these internal helper functions. 
+
+Project Technical Details: 
+The client/form is implemented using React JS. (RetrievePatientData\WebContent\retrieveAndDisplayPatientData.jsp)
+The server is implemented in Node JS. (RetrievePatientData\WebContent\retrieveAndDisplayPatientData.jsp). 
+
+The features include: 
+1) A front end form that accepts the patient id and a SUBMIT button. 
+2) Upon click of submit button validation is performed to determine if patient already exists in local db(MySql). 
+3) If patient already exists in local db, GET request is submitted to Node JS Server to retrieve the patient data from db. The db retrieved values are displayed on JSP page.  
+4) If patient does not exist in local db, a POST request is submitted to Node JS Server to insert the new data in db. In this case user is navigated to Node JS server, which renders the patient info. In this case, the client sends request using the 1upHealth FHIR $everything query.  The project's logic parses through the JSON response delivered by the 1upHeath API. The info was parsed for human readability and is stored in db and displayed to the user. 
+5) I used Eclipse Mars to develop this project. 
+6) Tomcat version 7 at localhost was used to run the client on port 8081. 
+7) The NodeJS Server was run on port 8082. Configuration was added in this project to allow for cross port communication. 
+
+Notes: 
+- If we make changes in the db.js file, we need to restart the Node JS Server for the changes to take affect. 
+The console.log statements in the db.js file are output the the Windows cmd.   
+- If we make changes to the JSP file, we simply need to refresh the browser page for the changes to take affect. In this case, we do not need to restart the Tomcat Server. 

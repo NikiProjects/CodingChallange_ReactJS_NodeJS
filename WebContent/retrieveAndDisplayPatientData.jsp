@@ -17,35 +17,68 @@
 <body>
 
 <script type="text/babel">
+
+
 class RetrievePatientDataForm extends React.Component {
 
 
 constructor(props) {
     super(props);
-    this.state = {value: '', responselements: '', responseArr:[], dbrecords:'', patientIdFromDbState:'', resourceType1FromDbState:'',resourceType2FromDbState:'',genderFromDbState:'',fullUrlFromDbState:'',lastUpdatedFromDbState:''};
+    this.state = {value: '', responselements: '',patientIdFromDbState:'', resourceType1FromDbState:'',resourceType2FromDbState:'',genderFromDbState:'',fullUrlFromDbState:'',lastUpdatedFromDbState:''};
 	
-	let insertDateFromDb = '';
 	let Difference_In_Time = '';	
 
 	this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
  	
 
+}
+
+
+setGlobalStateVariableWithValuesFromDb(patientIdFromDb,resourceType1FromDb,resourceType2FromDb,genderFromDb,fullUrlFromDb,lastUpdatedFromDb){
+this.setState({
+      patientIdFromDbState: patientIdFromDb
+    });
+
+	this.setState({
+      resourceType1FromDbState: resourceType1FromDb
+    });
+
+	this.setState({
+      resourceType2FromDbState: resourceType2FromDb
+    });
+
+	this.setState({
+      genderFromDbState: genderFromDb
+    });
+
+	this.setState({
+      fullUrlFromDbState: fullUrlFromDb
+    });
+
+	this.setState({
+      lastUpdatedFromDbState: lastUpdatedFromDb
+    });
 
 }
 
-	handleChange(event) {
-    this.setState({value: event.target.value});
-  }
- 
-  handleSubmit(event) {
-    event.preventDefault();
-	var patientId = this.state.value;
-console.log("Patient Id received in handleSubmit function: " + patientId);
+
+invoke1upHealthEverythingApi(patientId){
+	var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
+	var bearer = 'Bearer 901fcb3e60c148f78a2c2c89261b8aad' ;
+	fetch(requesturl, {
+        method: 'GET',
+        headers: {
+            'Authorization': bearer,
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+	.then(data => this.setState({responselements:data})) 
+
+}
 
 
-
-
+submitRequestToNodeJsServer_getRecByPatientId(patientId){
 var urlgetdbrecs = "http://localhost:8082/getPatientRecord/?id="+ patientId;
 
 var promise1 = fetch(urlgetdbrecs,{
@@ -56,10 +89,29 @@ var promise1 = fetch(urlgetdbrecs,{
 		});
 
 var promise2 = promise1.then(response => response.json());
-     
-promise2.then(dbPatientData =>{this.setState({dbrecords:dbPatientData});
+
+return promise2;
+}
+
+
+
+handleChange(event) {
+	this.setState({value: event.target.value});
+}
+ 
+handleSubmit(event) {
+	event.preventDefault();
+
+	var patientId = this.state.value;
+	console.log("Patient Id received in handleSubmit function: " + patientId);
+
+var promise2 = this.submitRequestToNodeJsServer_getRecByPatientId(patientId);
+
+console.log("Finished invoking new function"); 
+    
+promise2.then(dbPatientData =>{
 if(dbPatientData.length != 0){
-console.log("1upHealth Api Response's length of dbPatientDataArray: " + dbPatientData.length);
+
 var dbPatientDataAsStr = JSON.stringify(dbPatientData);
 console.log("dbPatientDataAsStr: " + dbPatientDataAsStr);
 
@@ -67,106 +119,31 @@ var dbPatientDataAsStrHasPatientId = dbPatientDataAsStr.includes(patientId);
 console.log("dbPatientDataAsStrHasPatientId " + dbPatientDataAsStrHasPatientId);
 
 
-console.log("In retrieve from db block");
-
 var patientIdFromDb = dbPatientData[0].patient_id;
 var resourceType1FromDb = dbPatientData[0].resourceType1;
 var resourceType2FromDb = dbPatientData[0].resourceType2;
 var genderFromDb = dbPatientData[0].gender;
 var fullUrlFromDb = dbPatientData[0].fullUrl;
 var lastUpdatedFromDb = dbPatientData[0].lastUpdated;
-let insertDateFromDb = dbPatientData[0].insertTs;
-console.log("insertTsFromDb: " + insertDateFromDb);
+let insertTsFromDb = dbPatientData[0].insertTs;
+console.log("insertTsFromDb: " + insertTsFromDb);
 
-var splitStr = insertDateFromDb.split("-");
-console.log("Split num1 results in: " + splitStr);
-console.log("splitStr index 0 " + splitStr[0]);
-var yearDbInsertTs = splitStr[0];
-console.log("Year: " + yearDbInsertTs);
-let monthDbInsertTs = splitStr[1];
-monthDbInsertTs = monthDbInsertTs - 1;
-console.log("Month: " + monthDbInsertTs);
-
-var secondSplit = splitStr[2].split(' ');
-console.log("2nd split: " + secondSplit);
-var dayDbInsertTs = secondSplit[0];
-console.log("Day: " + dayDbInsertTs);
-
-var thirdSplit = secondSplit[1].split(":");
-console.log("3rd split: " + thirdSplit);
-
-var hoursDbInsertTs = thirdSplit[0];
-console.log("hoursDbInsertTs: " + hoursDbInsertTs);
-
-var minutesDbInsertTs = thirdSplit[1];
-console.log("minutesDbInsertTs: " + minutesDbInsertTs);
-
-var secondsDbInsertTs = thirdSplit[2];
-console.log("Day: " + secondsDbInsertTs);
-
-var currentDate =  new Date();
-var dateInsertTsDb = new Date(yearDbInsertTs, monthDbInsertTs, dayDbInsertTs, hoursDbInsertTs, minutesDbInsertTs, secondsDbInsertTs);
-console.log("print: " + currentDate);
-console.log("print: " + dateInsertTsDb);
-
-let Difference_In_Time = currentDate.getTime() - dateInsertTsDb.getTime(); 
-console.log("Diff: " + Difference_In_Time);
-var absValueDiffInTime = Math.abs(Difference_In_Time);
-console.log("Absolute value of diffInTime: " + absValueDiffInTime);
-if(absValueDiffInTime < 3600000)
+var diffCurrentTsAndDbInsertTs = extractValuesFromInsertTsFromDb(insertTsFromDb);
+if(diffCurrentTsAndDbInsertTs < 7200000)
 {
-this.setState({
-      patientIdFromDbState: patientIdFromDb
-    });
-
-this.setState({
-      resourceType1FromDbState: resourceType1FromDb
-    });
-
-this.setState({
-      resourceType2FromDbState: resourceType2FromDb
-    });
-
-this.setState({
-      genderFromDbState: genderFromDb
-    });
-
-this.setState({
-      fullUrlFromDbState: fullUrlFromDb
-    });
-this.setState({
-      lastUpdatedFromDbState: lastUpdatedFromDb
-    });
-
-console.log("Completed if block - patient id exists in db.");
+	this.setGlobalStateVariableWithValuesFromDb(patientIdFromDb,resourceType1FromDb,resourceType2FromDb,genderFromDb,fullUrlFromDb,lastUpdatedFromDb);
 }
 else{
-console.log("Executing new else block");
-var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
-var bearer = 'Bearer 518c076ffdc746cf983e06f797f90fe5' ;
-fetch(requesturl, {
-        method: 'GET',
-        headers: {
-            'Authorization': bearer,
-            'Content-Type': 'application/json'
-        }
-    }).then(response => response.json())
-.then(data => this.setState({responselements:data})) 
+console.log("Invoking 1upHealthEverythingApi after checking insertTs value from db");
+ this.invoke1upHealthEverythingApi(patientId);
 }
 
 }
 else{
-console.log("In retrieve from API block");
-var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
-var bearer = 'Bearer 518c076ffdc746cf983e06f797f90fe5' ;
-fetch(requesturl, {
-        method: 'GET',
-        headers: {
-            'Authorization': bearer,
-            'Content-Type': 'application/json'
-        }
-    }).then(response => response.json())
-.then(data => this.setState({responselements:data})) 
+console.log("This patient does not exist in db, so getting info from 1upHealthApi");
+
+this.invoke1upHealthEverythingApi(patientId);
+
 
 var testRetrieveTypeField = this.state.responselements.type;
 
@@ -402,9 +379,52 @@ console.log("finished submitting form to node js server.");
 }
 
 
-function hello(){
-console.log("Invoked hello helper function");
+function extractValuesFromInsertTsFromDb(insertTsFromDb){
+console.log("Invoked extractValuesFromInserTsFromDb helper function");
+
+
+var firstSplitInsertTsFromDb = insertTsFromDb.split("-");
+console.log("Output split # 1 of insertTsDb: " + firstSplitInsertTsFromDb);
+console.log("Output split # 1 of insertTsDb index 0 " + firstSplitInsertTsFromDb[0]);
+var yearDbInsertTs = firstSplitInsertTsFromDb[0];
+console.log("Year yearDbInsertTs: " + yearDbInsertTs);
+let monthDbInsertTs = firstSplitInsertTsFromDb[1];
+monthDbInsertTs = monthDbInsertTs - 1;
+console.log("Month monthDbInsertTs: " + monthDbInsertTs);
+
+var secondSplitInsertTsFromDb = firstSplitInsertTsFromDb[2].split(' ');
+console.log("Output split # 2 of insertTsDb: " + secondSplitInsertTsFromDb);
+var dayDbInsertTs = secondSplitInsertTsFromDb[0];
+console.log("Day dayDbInsertTs: " + dayDbInsertTs);
+
+var thirdSplitInsertTsFromDb = secondSplitInsertTsFromDb[1].split(":");
+console.log("Output split # 3 of insertTsDb:: " + thirdSplitInsertTsFromDb);
+
+var hoursDbInsertTs = thirdSplitInsertTsFromDb[0];
+console.log("Hours hoursDbInsertTs: " + hoursDbInsertTs);
+
+var minutesDbInsertTs = thirdSplitInsertTsFromDb[1];
+console.log("minutesDbInsertTs: " + minutesDbInsertTs);
+
+var secondsDbInsertTs = thirdSplitInsertTsFromDb[2];
+console.log("Day: " + secondsDbInsertTs);
+
+var currentDate =  new Date();
+var dateInsertTsDb = new Date(yearDbInsertTs, monthDbInsertTs, dayDbInsertTs, hoursDbInsertTs, minutesDbInsertTs, secondsDbInsertTs);
+console.log("print: " + currentDate);
+console.log("print: " + dateInsertTsDb);
+
+let Difference_In_Time = currentDate.getTime() - dateInsertTsDb.getTime(); 
+console.log("Diff: " + Difference_In_Time);
+var diffCurrentTsAndDbInsertTs = Math.abs(Difference_In_Time);
+console.log("Absolute value of diffInTime: " + diffCurrentTsAndDbInsertTs);
+
+return diffCurrentTsAndDbInsertTs;
+
 }
+
+
+
 
 </script>
 

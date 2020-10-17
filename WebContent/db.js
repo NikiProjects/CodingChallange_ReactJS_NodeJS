@@ -11,10 +11,26 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(cors());
 
+
+function createHtmlDocWithResponse(res,p1FromReqBody,p5FromReqBody,p4FromReqBody,p3FromReqBody,p2FromReqBody,p6FromReqBody){
+	res.write('<html>');
+	res.write('<head> <title> Patient Information </title> </head>');
+	res.write(' <body> <b>Resource Type 1: </b>' + p1FromReqBody + '      <br/><br/> <b>Resource Type 2: </b>' + p5FromReqBody + '      <br/><br/> <b>PatientId: </b>' + p4FromReqBody + '      <br/><br/><b>Gender: </b>' + p3FromReqBody + '       <br/><br/><b>Patient Full Url: </b>' + p2FromReqBody + '       <br/><br/><b>Patient Data Last Updated: </b>' + p6FromReqBody + '</body>');
+	res.write('</html>');
+		
+	
+}
+
+
 app.post("/action", function(req , res){
-	console.log("hello from db.js");
+	console.log("");
+	console.log("");
+	console.log("");
+	console.log("");
+	console.log("");
+	console.log("Begin POST controller execution");
 	var reqBody = req.body
-	console.log('Got body:', reqBody);
+	console.log('Post Controller Request Body:', reqBody);
 	
 	var p1FromReqBody = reqBody.p1;
 	var p2FromReqBody = reqBody.p2;
@@ -38,7 +54,7 @@ app.post("/action", function(req , res){
 		});
 
 if(connection){
-		console.log("pool created successfully")	
+		console.log("Connection pool created successfully Node JS Server GET controller")	
 	
 	// Connecting to the database.
     connection.getConnection(function (err, connection) {
@@ -64,13 +80,9 @@ else{
 	console.log("could not connect to database");
 	}
 
-res.write('<html>');
-res.write('<head> <title> Patient Information </title> </head>');
-res.write(' <body> <b>Resource Type 1: </b>' + p1FromReqBody + '      <br/><br/> <b>Resource Type 2: </b>' + p5FromReqBody + '      <br/><br/> <b>PatientId: </b>' + p4FromReqBody + '      <br/><br/><b>Gender: </b>' + p3FromReqBody + '       <br/><br/><b>Patient Full Url: </b>' + p2FromReqBody + '       <br/><br/><b>Patient Data Last Updated: </b>' + p6FromReqBody + '</body>');
-res.write('</html>');
+
+createHtmlDocWithResponse(res,p1FromReqBody,p5FromReqBody,p4FromReqBody,p3FromReqBody,p2FromReqBody,p6FromReqBody);
 //write end to mark it as stop for node js response.
-
-
 res.end();
 
 //res.render('/');
@@ -89,7 +101,12 @@ res.end();
 
 
 app.get('/getPatientRecord', function (req, res) {
-	console.log("invoked Node JS Server GET controller");
+	console.log("");
+	console.log("");
+	console.log("");
+	console.log("");
+	console.log("");
+	console.log("Begin Node JS Server GET controller");
 	const connection = mysql.createPool({
 		  host     : 'localhost',
 		  user     : 'root',
@@ -100,21 +117,20 @@ app.get('/getPatientRecord', function (req, res) {
 
 	if(connection){
 		// Connecting to the database.
-		console.log("Connected to db from Node JS Server GET controller");
+		console.log("Connection pool created successfully Node JS Server GET controller");
 	    connection.getConnection(function (err, connection) {
 
 	    	var patientId = req.query.id;
-	    	console.log("url param: " + patientId);
+	    	console.log("GET controller: url param retrieved from request object: " + patientId);
 	    
 	    	var getPatientRecSqlStmt = "SELECT * FROM patients WHERE patient_id = '" + patientId + "'";
-			console.log("retrieve pateint record sql stmt: " + getPatientRecSqlStmt);	
+			console.log("GET controller: retrieve pateint's record sql stmt: " + getPatientRecSqlStmt);	
 	    	
 	    	
-	    // Executing the MySQL query (select all data from the 'users' table).
 	    connection.query(getPatientRecSqlStmt, function(error,results,fields) {
 	    	if (error) throw error;
 	    	var outputRes = JSON.stringify(results);
-	    	console.log("output: " + outputRes);
+	    	console.log("GET controller: query results as json string " + outputRes);
 	    	res.send(results)
 	        console.log('Connected Id:- ' + connection.threadId);
 	    }); // end of connection.query
