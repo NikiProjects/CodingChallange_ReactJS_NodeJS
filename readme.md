@@ -1,5 +1,6 @@
 Notes on Coding Challange Pre requisites: 
 My application name: RetrieveAllPatientData
+Location of project on C drive: C:\Users\Nikita\Nex-G-wkspace\RetrievePatientData
 
 Step1: 
 C:\WINDOWS\system32>curl -X POST "https://api.1up.health/user-management/v1/user" -d "app_user_id=nkulkarni" -d "client_id=providedBy1upHealth" -d "client_secret=providedBy1upHealth"
