@@ -35,7 +35,7 @@ constructor(props) {
     this.setState({value: event.target.value});
   }
  
-  handleSubmit(event) {
+ handleSubmit(event) {
     event.preventDefault();
 	var patientId = this.state.value;
 console.log("Patient Id received in handleSubmit function: " + patientId);
@@ -104,7 +104,7 @@ console.log("Completed if block - patient id exists in db.");
 else{
 console.log("In retrieve from API block");
 var requesturl = "https://api.1up.health/fhir/dstu2/Patient/" + patientId + "/$everything";
-var bearer = 'Bearer 4f813704e1ec42e08ef81ab18188491c' ;
+var bearer = 'Bearer af0c1a65df7d0c57ceb5ab93c14bcc7221b1c13a' ;
 fetch(requesturl, {
         method: 'GET',
         headers: {
