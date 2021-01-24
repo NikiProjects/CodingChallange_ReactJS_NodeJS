@@ -2,6 +2,17 @@ Notes on Coding Challange Pre requisites:
 My application name: RetrieveAllPatientData
 Location of project on C drive: C:\Users\Nikita\Nex-G-wkspace\RetrievePatientData
 
+The features include: 
+1) A front end form that accepts the patient id and a SUBMIT button. 
+2) Upon click of submit button validation is performed to determine if patient already exists in local db(MySql). 
+3) If patient already exists in local db, GET request is submitted to Node JS Server to retrieve the patient data from db. The db retrieved values are displayed on JSP page.  
+4) If patient does not exist in local db, a POST request is submitted to Node JS Server to insert the new data in db. In this case user is navigated to Node JS server, which renders the patient info. In this case, the client sends request using the 1upHealth FHIR $everything query.  The project's logic parses through the JSON response delivered by the 1upHeath API. The info was parsed for human readability and is stored in db and displayed to the user. 
+5) I used Eclipse Mars to develop this project. 
+6) Tomcat version 7 at localhost was used to run the client on port 8081. 
+7) The NodeJS Server was run on port 8082. Configuration was added in this project to allow for cross port communication. 
+
+
+
 Step1: 
 C:\WINDOWS\system32>curl -X POST "https://api.1up.health/user-management/v1/user" -d "app_user_id=nkulkarni" -d "client_id=providedBy1upHealth" -d "client_secret=providedBy1upHealth"
 {"success":true,"code":"6c0f9239fab149478792968225454d97","oneup_user_id":123311463,"app_user_id":"nkulkarni","active":true}
